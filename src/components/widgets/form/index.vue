@@ -31,23 +31,25 @@ export default {
     return {
       userName: '',
       phone: '',
-      users: [],
-      loginError: false
+      loginError: false,
+      users: []
     }
   },
-  created() {
-    fetch('https://jsonplaceholder.typicode.com/users')
-      .then(response => response.json())
-      .then(users => {
-        users.forEach(user => {
-          this.users.push({ 'id' : user.id, 'username' : user.username, 'phone' : user.phone})
-        });
-      })
-      .catch(error => console.error(error))
-  },
   computed: {
+    // get users
+    getUsers() {
+      return this.$store.state.users
+    },
+    // filter: id, username, phone
+    filterUsers() {
+      this.getUsers.forEach(user => {
+        this.users.push({'id' : user.id, 'username' : user.username, 'phone' : user.phone})
+      })
+      return this.users
+    },
+    // cleaner phone
     cleanedUsers() {
-      return this.users.map(user => {
+      return this.filterUsers.map(user => {
         return {
           id: user.id,
           username: user.username,
@@ -56,12 +58,17 @@ export default {
       })
     }
   },
+  async created() {
+    // Store
+    await this.$store.dispatch('fetchUsers')
+    this.filterUsers()
+  },
   methods: {
     // login
     login() {
       this.loginError = false
-      const user = this.cleanedUsers.find(user => user.username === this.userName && user.phone === this.phone)
-      console.log(user)
+      const user = this.cleanedUsers.find(user =>
+          user.username === this.userName && user.phone === this.phone)
 
       if(user) {
         this.$store.commit('setUserId', user.id)

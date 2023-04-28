@@ -7,13 +7,10 @@
 <script>
 // components
 import TodoTitle from '@/components/features/todo/title.vue'
-// UI
-import UiCheckbox from '@/components/ui/uiCheckbox/index.vue'
 
 export default {
   name: "widgetsTodo",
   components: {
-    UiCheckbox,
     TodoTitle
   },
   props: {
@@ -24,12 +21,12 @@ export default {
     }
   },
   data(){
-    return{
-      list: null,
+    return {
       user: []
     }
   },
   created() {
+    // fetch todoList
     fetch('https://jsonplaceholder.typicode.com/todos')
       .then(response => response.json())
       .then(list => {

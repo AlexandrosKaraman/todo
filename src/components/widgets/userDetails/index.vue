@@ -18,8 +18,7 @@ export default {
     // Id
     userId: {
       type: Number,
-      required: true,
-      default: null
+      required: true
     }
   },
   data() {

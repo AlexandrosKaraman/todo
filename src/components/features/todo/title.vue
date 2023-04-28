@@ -1,31 +1,33 @@
 <template lang="pug">
-.wrapper
-  // Item
-  .item(
-    v-for="(item, id) in user"
-    :key="id"
+  .wrapper
+    // Item
+    .item(
+      v-for="(item, id) in user"
+      :key="id"
     )
-    // Title
-    span {{ item.title }}
-    // Checkbox
-    ui-checkbox.checkbox(:value="item.completed")
-    toggle-favorite(
-      :id="item.id"
-      :is-favorite="isFavorite(item.id)"
-      @favorite-changed="updateFavorites"
-    )
+      // Title
+      span {{ item.title }}
+      // Checkbox
+      ui-checkbox.checkbox(:value="item.completed")
+      // Favorite button
+      favorite-button(
+        :todo="item.id"
+        :is-favorite="isFavorite(item.id)"
+        @click="toggleFavorite(item.id)"
+      )
 </template>
 
 <script>
 // UI
 import UiCheckbox from '@/components/ui/uiCheckbox/index.vue'
-import ToggleFavorite from '@/components/features/todo/toggleFavorite.vue'
+// Components
+import FavoriteButton from '@/components/features/todo/favoriteButton.vue'
 
 export default {
   name: "todoTitle",
   components: {
     UiCheckbox,
-    ToggleFavorite
+    FavoriteButton
   },
   props: {
     user: {
@@ -35,19 +37,39 @@ export default {
   },
   data() {
     return {
-      favorites: []
+      favoriteList: []
     }
   },
   created() {
-    let favorites = JSON.parse(localStorage.getItem("favorites")) || []
-    this.favorites = favorites
+    // Storage
+    const favoriteList = JSON.parse(localStorage.getItem('favoriteList'))
+    if (favoriteList) {
+      this.favoriteList = favoriteList
+    }
   },
   methods: {
-    isFavorite(id) {
-      return this.favorites.includes(id)
+    toggleFavorite(id) {
+      if (this.isFavorite(id)) {
+        this.removeFromFavorite(id)
+      } else {
+        this.addToFavorite(id)
+      }
     },
-    updateFavorites() {
-      localStorage.setItem("favorites", JSON.stringify(this.favorites))
+    addToFavorite(id) {
+      if(!this.favoriteList.includes(id)) {
+        this.favoriteList.push(id)
+        localStorage.setItem('favoriteList', JSON.stringify(this.favoriteList))
+      }
+    },
+    removeFromFavorite(id) {
+      if(this.favoriteList.includes(id)) {
+        const index = this.favoriteList.indexOf(id)
+        this.favoriteList.splice(index, 1)
+        localStorage.setItem('favoriteList', JSON.stringify(this.favoriteList))
+      }
+    },
+    isFavorite(id) {
+      return this.favoriteList.includes(id)
     }
   }
 }
@@ -64,4 +86,6 @@ export default {
     display: flex
     justify-content: space-between
     gap: 8px
+    .checkbox
+      justify-self: right
 </style>
