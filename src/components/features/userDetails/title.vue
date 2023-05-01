@@ -1,16 +1,22 @@
 <template lang="pug">
   .title
-    h2.title_item {{ title.name }}
-    h3.title_item {{ title.username }}
+    strong.title_item {{ name }}
+    strong.title_item {{ username }}
 </template>
 
 <script>
 export default {
   name: "userTitle",
   props: {
-    title: {
+    name: {
       type: String,
-      required: false
+      required: false,
+      default: ''
+    },
+    username: {
+      type: String,
+      required: false,
+      default: ''
     }
   }
 }

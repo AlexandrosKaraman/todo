@@ -11,9 +11,11 @@
       ui-checkbox.checkbox(:value="item.completed")
       // Favorite button
       favorite-button(
-        :todo="item.id"
+        :todo="item"
+        :favorite-list="favoriteList"
         :is-favorite="isFavorite(item.id)"
-        @click="toggleFavorite(item.id)"
+        @remove-from-favorite="removeFromFavorite"
+        @add-to-favorite="addToFavorite"
       )
 </template>
 
@@ -82,10 +84,7 @@ export default {
   gap: 10px
   .item
     border: 1px solid #000000
-    padding: 5px
-    display: flex
-    justify-content: space-between
-    gap: 8px
-    .checkbox
-      justify-self: right
+    padding: 7px
+    display: grid
+    grid-template-columns: 8fr 1fr 1fr
 </style>

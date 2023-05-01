@@ -5,15 +5,14 @@
     form-title.login_title(title="description")
     // Inputs form
     .login_input
+      // name
       ui-input(label="description" placeholder="Username" v-model="userName")
-      p(style="color: red;") {{ userName }}
+      // phone
       ui-input(placeholder="Phone Number" v-model="phone" allow-numbers-and-symbols)
-      p(style="color: red;") {{ phone }}
     // Button submit
     ui-button.login_button(name="Register" @click.native="login()" type="submit")
     // if error
     form-error(v-if="loginError" error="Login error. Please try again.")
-    textarea(cols="40" rows=20) {{ users }}
 </template>
 
 <script>
@@ -31,8 +30,8 @@ export default {
     return {
       userName: '',
       phone: '',
-      loginError: false,
-      users: []
+      users: [],
+      loginError: false
     }
   },
   computed: {
@@ -61,7 +60,6 @@ export default {
   async created() {
     // Store
     await this.$store.dispatch('fetchUsers')
-    this.filterUsers()
   },
   methods: {
     // login

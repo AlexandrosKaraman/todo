@@ -1,7 +1,7 @@
 <template lang="pug">
 .wrapper
   // Title
-  user-title(:title="user")
+  user-title(:name="user.name" :username="user.username")
   // Details
   user-item(:item="user")
 </template>

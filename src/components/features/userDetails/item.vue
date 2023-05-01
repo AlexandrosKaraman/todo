@@ -38,9 +38,9 @@ export default {
   name: "userItem",
   props: {
     item: {
-      type: String,
+      type: Object,
       required: false,
-      default: null
+      default: () => {}
     }
   }
 }

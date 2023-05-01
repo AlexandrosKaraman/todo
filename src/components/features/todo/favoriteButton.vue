@@ -1,7 +1,6 @@
 <template lang="pug">
 .wrapper_button
-  button.favorite-button(@click="toggleFavorite" :class="{ favorite: isFavorite }")
-    i.material-icons {{ isFavorite ? 'star' : 'star_border' }}
+  button.favorite-button(@click="toggleFavorite") click
 </template>
 
 <script>
@@ -17,6 +16,10 @@ export default {
       type: Array,
       required: true,
       default: () => []
+    },
+    isFavorite: {
+      type: Boolean,
+      required: true
     }
   },
   methods: {
@@ -27,11 +30,6 @@ export default {
         this.$emit('add-to-favorite', this.todo.id)
       }
     }
-  },
-  computed: {
-    isFavorite() {
-      return this.favoriteList.includes(this.todo.id)
-    }
   }
 }
 </script>
@@ -41,9 +39,4 @@ export default {
   border: none
   background-color: transparent
   cursor: pointer
-  i.material-icons
-    font-size: 20px
-  &.favorite
-    i.material-icons
-      color: gold
 </style>
