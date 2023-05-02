@@ -9,7 +9,7 @@ button.base_button(
 
 <script>
 export default {
-  name: "uiButton",
+  name: 'UiButton',
   props: {
     // Params
     type: {

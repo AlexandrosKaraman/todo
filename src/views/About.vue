@@ -1,24 +1,25 @@
 <template lang="pug">
 .about
   // user details
-  widgetsUserDetails(:user-id="userId")
+  widgets-user-details
   // todo
   widgets-todo(:user-id="userId")
 </template>
+
 <script>
 // Widgets
 import widgetsUserDetails from '@/components/widgets/userDetails/index.vue'
-import WidgetsTodo from '@/components/widgets/todo/index.vue'
+import widgetsTodo from '@/components/widgets/todo/index.vue'
 
 export default {
-  name: 'about',
+  name: 'AboutPage',
   components: {
-    WidgetsTodo,
+    widgetsTodo,
     widgetsUserDetails
   },
   // Computed
   computed: {
-    userId() {
+    userId () {
       return this.$store.state.userId
     }
   }

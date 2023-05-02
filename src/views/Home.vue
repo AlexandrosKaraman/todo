@@ -8,7 +8,7 @@
 import widgetsLoginForm from '@/components/widgets/form/index.vue'
 
 export default {
-  name: 'Home',
+  name: 'HomePage',
   components: { widgetsLoginForm }
 }
 </script>

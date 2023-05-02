@@ -4,7 +4,7 @@ p.title {{ title }}
 
 <script>
 export default {
-  name: "formTitle",
+  name: 'formTitle',
   props: {
     title: {
       type: String,

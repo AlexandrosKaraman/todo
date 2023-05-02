@@ -1,21 +1,24 @@
 <template lang="pug">
 .page_wrapper
-  .select_wrapper
-    ui-select(:items="filters" v-model="selectedFilter")
-  todo-title(:user="user")
-  textarea(cols=20 rows=20) {{ user }}
+  ui-select-list(
+    v-model="selectedFilter"
+    :options="filters"
+    label="Filter"
+    placeholder="Select todo list filter"
+  )
+  todo-title(:user="filterTasks()")
 </template>
 
 <script>
 // components
 import TodoTitle from '@/components/features/todo/title.vue'
 // UI
-import UiSelect from '@/components/ui/uiSelect/index.vue'
+import UiSelectList from '@/components/ui/select/index.vue'
 
 export default {
-  name: "widgetsTodo",
+  name: 'WidgetsTodo',
   components: {
-    UiSelect,
+    UiSelectList,
     TodoTitle
   },
   props: {
@@ -27,6 +30,7 @@ export default {
   },
   data(){
     return {
+      // options
       filters: [
         { id: 1, name: 'All'},
         { id: 2, name: 'Completed'},
@@ -37,20 +41,10 @@ export default {
       user: []
     }
   },
-  created() {
+  beforeMount () {
     this.fetchUserTasks()
-    // fetch todoList
-    // fetch('https://jsonplaceholder.typicode.com/todos')
-    //     .then(response => response.json())
-    //     .then(list => {
-    //       for(let i = 0; i <= list.length; i += 1) {
-    //         if(list[i].userId === this.userId) {
-    //           this.user.push(list[i])
-    //         }
-    //       }
-    //     })
-    //     .catch(error => console.error(error))
   },
+  // Methods
   methods: {
     async fetchUserTasks() {
       try {
@@ -61,20 +55,38 @@ export default {
         console.error(error)
       }
     },
-    filterTasks() {
+    // filter task
+    filterTasks () {
+      let tasks = this.user
+
       switch (this.selectedFilter.id) {
+        // 2
         case 2:
-          this.user = this.user.filter((task) => task.completed)
+          tasks = tasks.filter(({ completed }) => completed === true)
           break;
+        // 3
         case 3:
-          this.user = this.user.filter((task) => !task.completed)
+          tasks = tasks.filter(({ completed }) => completed === false)
           break;
+        // 4
         case 4:
-          this.user = this.user.filter((task) => task.favorite)
+          tasks = tasks.filter((task) => {
+            const favorite = JSON.parse(localStorage.getItem('favoriteList'))
+            let isFavorite = false
+
+            // Cycle by favorite list
+            for (let i = 0, l = favorite.length; i < l; i += 1) {
+              if (favorite[i] === task.id) {
+                isFavorite = true
+              }
+            }
+
+            return isFavorite
+          })
           break;
-        default:
-          this.fetchUserTasks()
       }
+
+      return tasks.length > 0 ? tasks : []
     },
   },
   watch: {
@@ -89,6 +101,3 @@ export default {
 }
 </script>
 
-<style lang="sass" scoped>
-
-</style>

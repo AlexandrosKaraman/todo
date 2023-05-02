@@ -1,9 +1,12 @@
 <template lang="pug">
 .wrapper
-  // Title
-  user-title(:name="user.name" :username="user.username")
-  // Details
-  user-item(:item="user")
+  template(v-if="user")
+    // Title
+    user-title(:name="user.name" :username="user.username")
+    // Details
+    user-item(:item="user")
+  template(v-else)
+    h2 User data not exists
 </template>
 
 <script>
@@ -12,22 +15,22 @@ import UserTitle from '@/components/features/userDetails/title.vue'
 import UserItem from '@/components/features/userDetails/item.vue'
 
 export default {
-  name: "widgetsUserDetails",
+  name: 'widgetsUserDetails',
   components: { UserItem, UserTitle },
-  props: {
-    // Id
-    userId: {
-      type: Number,
-      required: true
-    }
-  },
-  data() {
+  data () {
     return {
       user: null
     }
   },
-  async created() {
-    const response = await fetch(`https://jsonplaceholder.typicode.com/users/${this.userId}`)
+  // Computed
+  computed: {
+    userId () {
+      return this.$store.getters['getUserId']
+    }
+  },
+  async created () {
+    const response = await fetch(`https://jsonplaceholder.typicode.com/users/${ this.userId }`)
+
     this.user = await response.json()
   }
 }

@@ -4,7 +4,7 @@ p.error {{ error }}
 
 <script>
 export default {
-  name: "formError",
+  name: 'formError',
   props: {
     error: {
       type: String,

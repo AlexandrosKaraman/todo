@@ -35,7 +35,7 @@
 
 <script>
 export default {
-  name: "userItem",
+  name: 'userItem',
   props: {
     item: {
       type: Object,

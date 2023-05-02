@@ -9,13 +9,14 @@
 <script>
 
 export default {
-  name: "UiCheckbox",
+  name: 'UiCheckbox',
   props: {
     value: {
       type: Boolean,
       required: true
     }
   },
+  // Computed
   computed: {
     isChecked: {
       get() {

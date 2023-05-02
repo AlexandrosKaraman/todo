@@ -6,11 +6,11 @@
     // Inputs form
     .login_input
       // name
-      ui-input(label="description" placeholder="Username" v-model="userName")
+      ui-input(label="description" placeholder="Username" v-model="userName" :disabled="loadStatus")
       // phone
-      ui-input(placeholder="Phone Number" v-model="phone" allow-numbers-and-symbols)
+      ui-input(placeholder="Phone Number" v-model="phone" :disabled="loadStatus" allow-numbers-and-symbols)
     // Button submit
-    ui-button.login_button(name="Register" @click.native="login()" type="submit")
+    ui-button.login_button(:name="loadStatus ? 'In process...' : 'Sign Up'" :class="{ 'loading': loadStatus }" @click.native="login()" :disabled="loadStatus" type="submit")
     // if error
     form-error(v-if="loginError" error="Login error. Please try again.")
 </template>
@@ -18,22 +18,25 @@
 <script>
 // features
 import FormTitle from '@/components/features/form/formTitle.vue'
-// ui components
-import UiInput from '@/components/ui/uiInput/index.vue'
-import UiButton from '@/components/ui/uiButton/index.vue'
 import FormError from '@/components/features/form/formError.vue'
+// ui components
+import UiInput from '@/components/ui/input/index.vue'
+import UiButton from '@/components/ui/button/index.vue'
 
 export default {
-  name: "widgetsLoginForm",
+  name: 'widgetsLoginForm',
   components: { FormError, UiButton, UiInput, FormTitle },
+  // Data
   data() {
     return {
+      loadStatus: false,
       userName: '',
       phone: '',
       users: [],
       loginError: false
     }
   },
+  // Computed
   computed: {
     // get users
     getUsers() {
@@ -61,19 +64,40 @@ export default {
     // Store
     await this.$store.dispatch('fetchUsers')
   },
+  // Methods
   methods: {
     // login
-    login() {
-      this.loginError = false
-      const user = this.cleanedUsers.find(user =>
-          user.username === this.userName && user.phone === this.phone)
+    async login () {
+      // Set load status
+      this.loadStatus = true
 
-      if(user) {
-        this.$store.commit('setUserId', user.id)
+      // Set login error flag
+      this.loginError = false
+
+      // Get user by username and phone
+      const user = this.cleanedUsers.find(({ username, phone }) => {
+        return username === this.userName && phone === this.phone
+      })
+
+      await new Promise((resolve) => {
+        setTimeout(() => {
+          resolve()
+        }, 2500)
+      })
+
+      // Check if user exists
+      if (user) {
+        // Set user id
+        this.$store.commit('SET_USER_ID', user.id)
+        // Redirect to about page
         this.$router.push('/about')
       } else {
+        // Set login error flag
         this.loginError = true
       }
+
+      // Remove load status
+      this.loadStatus = false
     }
   }
 }
@@ -90,4 +114,9 @@ export default {
     padding: 15px 25px 25px 25px
   &_button
     margin: 0 25px 25px 25px
+    &.loading
+      cursor: not-allowed
+      color: black
+      background-color: yellow
+      opacity: .5
 </style>

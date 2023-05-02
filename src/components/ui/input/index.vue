@@ -17,7 +17,7 @@
 
 <script>
 export default {
-  name: "uiInput",
+  name: 'UiInput',
   props: {
     // Values
     value: {
@@ -53,6 +53,7 @@ export default {
       error: ''
     }
   },
+  // Methods
   methods: {
     updateValue(event) {
       let value = event.target.value

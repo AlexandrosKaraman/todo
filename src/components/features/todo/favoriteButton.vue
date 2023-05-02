@@ -1,11 +1,11 @@
 <template lang="pug">
 .wrapper_button
-  button.favorite-button(@click="toggleFavorite") click
+  button.favorite-button(@click="toggleFavorite") click {{ isFavorite ? '(is favorite)' : '' }}
 </template>
 
 <script>
 export default {
-  name: "favoriteButton",
+  name: 'favoriteButton',
   props: {
     todo: {
       type: Object,
@@ -22,6 +22,7 @@ export default {
       required: true
     }
   },
+  // Methods
   methods: {
     toggleFavorite() {
       if(this.isFavorite) {

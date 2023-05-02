@@ -21,12 +21,12 @@
 
 <script>
 // UI
-import UiCheckbox from '@/components/ui/uiCheckbox/index.vue'
+import UiCheckbox from '@/components/ui/checkbox/index.vue'
 // Components
 import FavoriteButton from '@/components/features/todo/favoriteButton.vue'
 
 export default {
-  name: "todoTitle",
+  name: 'TodoTitle',
   components: {
     UiCheckbox,
     FavoriteButton
@@ -37,6 +37,7 @@ export default {
       required: true
     }
   },
+  // Data
   data() {
     return {
       favoriteList: []
@@ -45,10 +46,12 @@ export default {
   created() {
     // Storage
     const favoriteList = JSON.parse(localStorage.getItem('favoriteList'))
+
     if (favoriteList) {
       this.favoriteList = favoriteList
     }
   },
+  // Methods
   methods: {
     toggleFavorite(id) {
       if (this.isFavorite(id)) {
