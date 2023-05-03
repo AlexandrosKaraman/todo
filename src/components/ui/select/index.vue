@@ -174,7 +174,7 @@ export default {
   .label
     width: 100%
     margin-bottom: 4px
-    color: black
+    color: var(--black-color)
     cursor: pointer
   // Wrapper input
   .wrapper_input
@@ -184,7 +184,7 @@ export default {
     gap: 8px
     padding: 0 16px
     border: 1px solid black
-    background-color: white !important
+    background-color: var(--white-color) !important
     display: flex
     flex-direction: row
     justify-content: flex-start
@@ -202,7 +202,7 @@ export default {
       min-height: 60px
       max-height: 60px
       padding: 4px 0 2px
-      color: black
+      color: var(--black-color)
       background: transparent !important
       border: none
       outline: none
@@ -254,8 +254,8 @@ export default {
         max-height: 60px
         gap: 16px
         padding: 18px 16px 14px 16px
-        border: 1px solid black
-        background-color: wheat !important
+        border: none
+        background-color: var(--white-color) !important
         display: flex
         flex-direction: row
         justify-content: space-between
@@ -290,7 +290,7 @@ export default {
         width: 100%
         max-height: 290px
         padding: 12px 0
-        background-color: green
+        background-color: var(--white-color)
         box-shadow: 0 5px 30px rgba(0, 0, 0, 0.15)
         display: flex
         flex-direction: column

@@ -25,3 +25,15 @@ export default {
   }
 }
 </script>
+
+<style lang="sass" scoped>
+.about
+  margin: 10px 0
+  border: 8px solid var(--white-color)
+  border-radius: 20px
+  display: grid
+  grid-template-columns: 3fr 7fr
+  // Adaptive: 768px
+  @media screen and (max-width: 768px)
+    grid-template-columns: 100%
+</style>

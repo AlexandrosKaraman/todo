@@ -18,7 +18,7 @@ export default {
 <style lang="sass" scoped>
 .title
   text-align: center
-  color: #5F5F5F
-  background-color: #A5A5A5
+  color: var(--grey-color)
+  background-color: var(--grey-color-100)
   padding: 15px 0
 </style>

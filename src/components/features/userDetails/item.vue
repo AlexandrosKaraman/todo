@@ -1,9 +1,6 @@
 <template lang="pug">
 .wrapper
   .item
-    strong username:
-    span.item {{ item.username }}
-  .item
     strong email:
     span.item {{ item.email }}
   .item
@@ -25,7 +22,7 @@
     strong company:
     span.item {{ item.company.name }}
   .item
-    strong catch phrase:
+    strong phrase:
     span.item {{ item.company.catchPhrase }}
   .item
     strong bs:
@@ -51,6 +48,17 @@ export default {
   display: grid
   gap: 8px
   .item
+    width: 100%
+    background-color: var(--blue-color)
+    color: white
+    border-radius: 5px
+    padding: 6px
     display: flex
+    align-items: center
     column-gap: 6px
+    strong
+      background: blueviolet
+      color: white
+      padding: 5px
+      border-radius: 5px
 </style>

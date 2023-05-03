@@ -55,6 +55,7 @@ export default {
   },
   // Methods
   methods: {
+    // # Update value
     updateValue(event) {
       let value = event.target.value
 
@@ -93,12 +94,12 @@ export default {
   flex-direction: column
   row-gap: 14px
   .label
-    color: #5F5F5F
+    color: var(--grey-color)
     font-size: 15px
   .field
     width: 100%
     min-height: 41px
     border-radius: 5px
     padding: 5px
-    color: black
+    color: var(--black-color)
 </style>

@@ -24,11 +24,14 @@ export default {
   },
   // Computed
   computed: {
+    // # get user ID
     userId () {
       return this.$store.getters['getUserId']
     }
   },
+  // Created
   async created () {
+    // # fetch user ID
     const response = await fetch(`https://jsonplaceholder.typicode.com/users/${ this.userId }`)
 
     this.user = await response.json()
@@ -37,5 +40,10 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-
+.wrapper
+  background-color: var(--white-color)
+  padding: 5px
+  // Adaptive: 768px
+  @media screen and (max-width: 768px)
+    padding: 0 0 10px 0
 </style>

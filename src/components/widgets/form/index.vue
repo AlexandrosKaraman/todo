@@ -8,11 +8,11 @@
       // name
       ui-input(label="description" placeholder="Username" v-model="userName" :disabled="loadStatus")
       // phone
-      ui-input(placeholder="Phone Number" v-model="phone" :disabled="loadStatus" allow-numbers-and-symbols)
+      ui-input(placeholder="Phone Number" v-model="phone" :disabled="loadStatus" :allow-numbers-and-symbols="true" type="number")
     // Button submit
     ui-button.login_button(:name="loadStatus ? 'In process...' : 'Sign Up'" :class="{ 'loading': loadStatus }" @click.native="login()" :disabled="loadStatus" type="submit")
     // if error
-    form-error(v-if="loginError" error="Login error. Please try again.")
+    form-error.login_error(v-if="loginError" error="Login error. Please try again.")
 </template>
 
 <script>
@@ -54,7 +54,7 @@ export default {
       return this.filterUsers.map(user => {
         return {
           id: user.id,
-          username: user.username,
+          username: user.username.replace(/\s/g, ''),
           phone: user.phone.replace(/\D/g, '')
         }
       })
@@ -89,6 +89,8 @@ export default {
       if (user) {
         // Set user id
         this.$store.commit('SET_USER_ID', user.id)
+        // Store user id in local storage
+        localStorage.setItem('userId', user.id)
         // Redirect to about page
         this.$router.push('/about')
       } else {
@@ -107,6 +109,7 @@ export default {
 .login
   max-width: 447px
   min-width: 447px
+  text-align: center
   background-color: #C3C3C3
   &_input
     display: grid
@@ -116,7 +119,14 @@ export default {
     margin: 0 25px 25px 25px
     &.loading
       cursor: not-allowed
-      color: black
-      background-color: yellow
+      color: var(--black-color)
+      background-color: var(--yellow-color)
       opacity: .5
+  &_error
+    padding-bottom: 15px
+    color: red
+  // Adaptive 768px
+  @media screen and (max-width: 768px)
+    max-width: 347px
+    min-width: 347px
 </style>

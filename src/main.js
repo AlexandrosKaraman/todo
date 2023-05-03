@@ -5,6 +5,7 @@ import store from './store/index'
 import ClickOutside from 'vue-click-outside'
 // SASS global
 import './assets/styles/index.sass'
+import './assets/styles/colors.sass'
 
 Vue.config.productionTip = false
 

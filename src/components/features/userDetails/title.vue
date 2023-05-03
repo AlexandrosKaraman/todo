@@ -1,7 +1,14 @@
 <template lang="pug">
   .title
-    strong.title_item {{ name }}
-    strong.title_item {{ username }}
+    // Image avatar
+    .title_block
+      img.title_img(src="@/assets/images/user.png")
+      // Name + slogan
+      .title_name
+        strong Do-it
+        strong.title_item {{ username }}
+    // HR
+    .hr
 </template>
 
 <script>
@@ -24,9 +31,21 @@ export default {
 
 <style lang="sass" scoped>
 .title
-  color: red
-  display: flex
-  flex-direction: column
-  gap: 10px
-  margin: 20px 0
+  display: block
+  margin: 20px 10px
+  &_block
+    display: flex
+    align-items: center
+    gap: 20px
+  &_img
+    width: calc(100% - 80%)
+  &_name
+    display: flex
+    flex-direction: column
+    gap: 10px
+  &_item
+    color: var(--violet-color)
+  .hr
+    margin: 35px 30px
+    border-bottom: 3px solid var(--violet-color)
 </style>

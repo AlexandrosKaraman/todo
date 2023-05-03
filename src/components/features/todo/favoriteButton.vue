@@ -1,11 +1,15 @@
 <template lang="pug">
 .wrapper_button
-  button.favorite-button(@click="toggleFavorite") click {{ isFavorite ? '(is favorite)' : '' }}
+  button.favorite-button(@click="toggleFavorite")
+    icon-star.favorite-icon(:is-favorite="isFavorite" :class="{'favorite-icon-yellow': isFavorite}")
 </template>
 
 <script>
+import IconStar from "@/assets/images/svg/star.vue";
+
 export default {
   name: 'favoriteButton',
+    components: {IconStar},
   props: {
     todo: {
       type: Object,
@@ -24,6 +28,7 @@ export default {
   },
   // Methods
   methods: {
+    // # Toggle favorite
     toggleFavorite() {
       if(this.isFavorite) {
         this.$emit('remove-from-favorite', this.todo.id)
@@ -36,6 +41,10 @@ export default {
 </script>
 
 <style lang="sass" scoped>
+.favorite-icon-yellow
+  fill: #FAC608
+.favorite-icon
+  width: 30px
 .favorite-button
   border: none
   background-color: transparent

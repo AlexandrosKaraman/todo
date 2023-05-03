@@ -44,8 +44,13 @@ export default {
 
 <style lang="sass" scoped>
 .base_button
-  width: 397px
+  max-width: 397px
+  min-width: 397px
   min-height: 41px
   background-color: #519945
   color: #FFFFFF
+  // Adaptive 768px
+  @media screen and (max-width: 768px)
+    max-width: 297px
+    min-width: 297px
 </style>

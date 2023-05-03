@@ -1,25 +1,35 @@
 <template lang="pug">
 .page_wrapper
+  .title_block
+    // Title
+    todo-title Get things done with ease: Todo
+    // Logout
+    todo-logout.logout
+  // Select
   ui-select-list(
     v-model="selectedFilter"
     :options="filters"
-    label="Filter"
     placeholder="Select todo list filter"
   )
-  todo-title(:user="filterTasks()")
+  // Todos list
+  my-todos(:user="filterTasks()")
 </template>
 
 <script>
 // components
-import TodoTitle from '@/components/features/todo/title.vue'
+import MyTodos from "@/components/features/todo/todos.vue"
+import TodoTitle from "@/components/features/todo/title.vue";
 // UI
 import UiSelectList from '@/components/ui/select/index.vue'
+import TodoLogout from '@/components/features/todo/logout.vue'
 
 export default {
   name: 'WidgetsTodo',
   components: {
-    UiSelectList,
-    TodoTitle
+    TodoLogout,
+      TodoTitle,
+      MyTodos,
+    UiSelectList
   },
   props: {
     userId: {
@@ -46,6 +56,7 @@ export default {
   },
   // Methods
   methods: {
+    // # async fetch todos
     async fetchUserTasks() {
       try {
         const response = await fetch('https://jsonplaceholder.typicode.com/todos')
@@ -55,7 +66,7 @@ export default {
         console.error(error)
       }
     },
-    // filter task
+    // # filter task
     filterTasks () {
       let tasks = this.user
 
@@ -100,4 +111,12 @@ export default {
 
 }
 </script>
+
+<style lang="sass" scoped>
+.title_block
+  display: flex
+  justify-content: space-around
+  .logout
+    margin: 12px
+</style>
 
